@@ -3,6 +3,10 @@ package co.com.sofka.app.calculator;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.junit.Assert.*;
 
 public final class BasicCalculatorTest {
@@ -22,6 +26,22 @@ public final class BasicCalculatorTest {
         // Assert
         assertEquals(expectedValue, result);
     }
+
+    @DisplayName("Testing several sums")
+    @ParameterizedTest(name = "{0} + {1} = {2}")
+    @CsvSource({
+            "0,    1,   1",
+            "1,    2,   3",
+            "49,  51, 100",
+            "1,  100, 101"
+    })
+    public void severalSums(Long first, Long second, Long expectedResult) {
+        assertEquals(expectedResult, basicCalculator.sum(first, second),
+                () -> first + " + " + second + " should equal " + expectedResult);
+    }
+
+
+
     @Test
     @DisplayName("Testing res: 1-1=0")
     public void res() {
@@ -36,8 +56,22 @@ public final class BasicCalculatorTest {
         // Assert
         assertEquals(expectedValue, result);
     }
+
+    @DisplayName("Testing several res")
+    @ParameterizedTest(name = "{0} - {1} = {2}")
+    @CsvSource({
+            "0,    1,   -1",
+            "1,    2,   -1",
+            "49,  51, -2",
+            "1,  100, -99"
+    })
+    public void severalRes(Long first, Long second, Long expectedResult) {
+        assertEquals(expectedResult, basicCalculator.res(first, second),
+                () -> first + " - " + second + " should equal " + expectedResult);
+    }
+
     @Test
-    @DisplayName("Testing res: 2*2=4")
+    @DisplayName("Testing mult: 2*2=4")
     public void multiplicacion() {
         // Arrange
         Long number1 = 2L;
@@ -51,6 +85,8 @@ public final class BasicCalculatorTest {
         // Assert
         assertEquals(expectedValue, result);
     }
+
+
     @Test
     @DisplayName("Testing division: 2/1=1")
     public void division() {
