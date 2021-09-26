@@ -62,8 +62,8 @@ public final class BasicCalculatorTest {
     @CsvSource({
             "0,    1,   -1",
             "1,    2,   -1",
-            "49,  51, -2",
-            "1,  100, -99"
+            "49,  51,   -2",
+            "1,  100,   -99"
     })
     public void severalRes(Long first, Long second, Long expectedResult) {
         assertEquals(expectedResult, basicCalculator.res(first, second),
@@ -86,6 +86,19 @@ public final class BasicCalculatorTest {
         assertEquals(expectedValue, result);
     }
 
+    @DisplayName("Testing several mult")
+    @ParameterizedTest(name = "{0} * {1} = {2}")
+    @CsvSource({
+            "0,    1,   0",
+            "1,    2,   2",
+            "49,  51,   2499",
+            "1,  100,   100"
+    })
+    public void severalMul(Long first, Long second, Long expectedResult) {
+        assertEquals(expectedResult, basicCalculator.multiplicacion(first, second),
+                () -> first + " * " + second + " should equal " + expectedResult);
+    }
+
 
     @Test
     @DisplayName("Testing division: 2/1=1")
@@ -101,6 +114,19 @@ public final class BasicCalculatorTest {
 
         // Assert
         assertEquals(expectedValue, result);
+    }
+
+    @DisplayName("Testing several div")
+    @ParameterizedTest(name = "{0} / {1} = {2}")
+    @CsvSource({
+            "0,    5,   0",
+            "2,    2,   1",
+            "20,   4,   5",
+            "100,  1,  100"
+    })
+    public void severalDiv(Double first, Double second, Double expectedResult) {
+        assertEquals(expectedResult, basicCalculator.division(first, second),
+                () -> first + " / " + second + " should equal " + expectedResult);
     }
 
 }
